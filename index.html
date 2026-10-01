@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SyntropyOS Satisfier UI Builder</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/css/satisfier.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">
+      <h1>SyntropyOS Satisfier</h1>
+    </div>
+    <div class="row">
+      <button class="btn" id="saveFile" style="display:inline-flex;align-items:center;gap:6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 4h12l4 4v12H4z"/><path d="M8 4v5h6V4"/><rect x="8" y="13" width="8" height="6"/></svg>Save Project</button>
+      <button class="btn" id="loadFile" style="display:inline-flex;align-items:center;gap:6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 7a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v2H3z"/><path d="M3 11h18l-2 8H5z"/></svg>Open Project</button>
+      <input type="file" id="fileInput" accept=".json,application/json" style="display:none">
+    </div>
+  </div>
+
+  <div class="work">
+    <div class="left">
+      <div class="panel">
+        <div class="hd">Primitives</div>
+        <div class="bd">
+          <div class="palette" id="palette"></div>
+          <div class="hint">Drag a block onto the screen, or click to drop it. Then drag to move, grab a handle to resize.</div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn" id="alignV" style="flex:1">Align Vertical</button>
+            <button class="btn" id="alignH" style="flex:1">Align Horizontal</button>
+          </div>
+          <div class="row" style="margin-top:8px">
+            <button class="btn" id="ctrParentH" style="flex:1">Center in Parent H</button>
+            <button class="btn" id="ctrParentV" style="flex:1">Center in Parent V</button>
+          </div>
+          <div class="hint" style="margin-top:6px">Shift-click layers to multi-select. Center in Parent centers every selected block inside the largest selected one.</div>
+          <div class="row" style="margin-top:8px">
+            <label class="row" style="gap:5px;font-size:11px;color:var(--muted)"><input type="checkbox" id="selOnly">Selected only</label>
+          </div>
+          <div class="row" style="margin-top:8px;align-items:center">
+            <label style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)"><input type="checkbox" id="gridChk">Grid</label>
+            <label style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)"><input type="checkbox" id="snapChk">Snap</label>
+            <label style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)">Step <input type="number" id="gridStep" value="8" min="1" max="64" style="width:52px"></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="hd">Paint</div>
+        <div class="bd">
+          <div class="row">
+            <label class="fld" style="flex:1">New block color
+              <div class="row">
+                <input type="color" id="newColor" value="#33e0ff">
+                <span id="newColorHex" style="color:var(--muted);font-size:12px"></span>
+              </div>
+            </label>
+          </div>
+          <div class="swatches" id="swNew"></div>
+          <div class="row" style="margin-top:12px">
+            <label class="fld" style="flex:1">Screen background
+              <input type="color" id="bgColor" value="#0e2050">
+            </label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="center">
+      <div class="bezel">
+        <div class="brandline"><span>SyntropyOS - ILI9341 Display Driver</span><b id="coord">--,--</b></div>
+        <div class="screenwrap">
+          <canvas id="screen" width="960" height="720"></canvas>
+        </div>
+        <div class="hint">Arrow keys nudge the selected block by 1px. Delete removes it.</div>
+      </div>
+      <div class="panel">
+        <div class="hd">Properties</div>
+        <div class="bd" id="props"><div class="empty">No block selected.</div></div>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="panel" style="flex:1;display:flex;flex-direction:column;min-height:0">
+        <div class="hd">Layers <button class="btn danger" id="clearAll" style="padding:3px 8px">Clear</button></div>
+        <div class="bd" style="flex:1;display:flex;flex-direction:column;min-height:0"><div class="list" id="list"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel code">
+    <div class="hd">uiRender() <span class="actions"><button class="btn" id="copyBtn">Copy C</button></span></div>
+    <pre><code id="code"></code></pre>
+  </div>
+</div>
+<script src="assets/js/satisfier.js"></script>
+</body>
+</html>
